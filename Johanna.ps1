@@ -5,6 +5,11 @@ $ie.navigate("http://lmnapp75/BPMDDILP/");
 #$ie.navigate("http://www.google.com");
 while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
 
+$counter = 0
+while (($counter -lt 100) -and ($ie.document -eq $null)) {Start-Sleep 1; $counter++}
+
+
+
 If ($ie) {'$ie is nice'
 If ($ie.document) {'$ie.document is nice'
 If ($ie.document.getElementById("menuQuery")) {'$ie.document.getElementById("menuQuery") is nice'
