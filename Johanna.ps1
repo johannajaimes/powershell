@@ -19,6 +19,7 @@ If ($ie.document.getElementById("menuQuery").value) {'$ie.document.getElementByI
 }  Else {'$ie.document IS NOT NICE!'} 
 }  Else {'$ie IS NOT NICE!'} 
 
+$ie.document.getElementById("menuQuery").value;
 $ie.document.getElementById("menuQuery").value = "DD-4266-CV";
 
 #$ie.document.getElementById("lst-ib").value = "sugar puppy";
