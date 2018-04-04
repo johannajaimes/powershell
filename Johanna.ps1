@@ -1,8 +1,8 @@
 #initialize browser
 $ie = New-Object -com internetexplorer.application;
 $ie.visible = $true;
-#$ie.navigate("http://lmnapp75/BPMDDILP/");
-$ie.navigate("http://www.google.com");
+$ie.navigate("http://lmnapp75/BPMDDILP/");
+#$ie.navigate("http://www.google.com");
 while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
 
 If ($ie) {'$ie is nice'
