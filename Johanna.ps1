@@ -12,6 +12,9 @@ $es = $ie.document.getElementsByTagName("*")
 $n = $es.length;
 for ($i=0;$i -lt $n; $i++) {
 
+    "The following elementId was found: "
+    $es[$i].id
+
     if ($es[$i].hasAttribute("contentWindow"))
     {
         "The following elementId has a contentWindow: "
