@@ -13,7 +13,9 @@ $n = $es.length;
 for ($i=0;$i -lt $n; $i++) {
 
     "The following elementId was found: "
+    $i
     $es[$i].id
+    $es[$i].name
 
     if ($es[$i].hasAttribute("contentWindow"))
     {
