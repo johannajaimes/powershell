@@ -10,12 +10,10 @@ while (($counter -lt 100) -and ($ie.document -eq $null)) {Start-Sleep 1; $counte
 
 document.querySelectorAll('*').forEach(function($node) {
     "The following node was found: "
-    $node.id
-    $node.name
-    if ($node.hasAttribute("contentWindow"))
-    {
-        "... and it has a contentWindow!"
-    }
+    $node
+    if ($node.hasAttribute("id")){"... and it has an id: ";$node.id}
+    if ($node.hasAttribute("name")){"... and it has a name: ";$node.name}
+    if ($node.hasAttribute("contentWindow")){"... and it has a contentWindow!"}
 });
 
     
