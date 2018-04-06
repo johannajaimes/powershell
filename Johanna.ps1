@@ -13,7 +13,8 @@ document.querySelectorAll('*').forEach(function($node) {
     $node
     if ($node.hasAttribute("id")){"... and it has an id: ";$node.id}
     if ($node.hasAttribute("name")){"... and it has a name: ";$node.name}
-    if ($node.hasAttribute("contentWindow")){"... and it has a contentWindow!"}
+    if ($node.hasAttribute("value")){"... and it has a value: "; $node.value}
+    if ($node.hasAttribute("contentWindow")){"... and it has a contentWindow"}
 });
 
     
