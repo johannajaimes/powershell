@@ -8,20 +8,18 @@ while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
 $counter = 0
 while (($counter -lt 100) -and ($ie.document -eq $null)) {Start-Sleep 1; $counter++}
 
-$es = $ie.document.getElementsByTagName("*")
-$n = $es.length;
-for ($i=0;$i -lt $n; $i++) {
-
-    "The following elementId was found: "
-    $i
-    $es[$i].id
-    $es[$i].name
-
-    if ($es[$i].hasAttribute("contentWindow"))
+document.querySelectorAll('*').forEach(function($node) {
+    "The following node was found: "
+    $node.id
+    $node.name
+    if ($node.hasAttribute("contentWindow"))
     {
-        "The following elementId has a contentWindow: "
-        $es[$i].id
+        "... and it has a contentWindow!"
     }
+});
+
+    
+    
 }
 
 ($ie.document.getElementsByName("menuQuery")|select -first 1).value = "DD-4266-CV";
