@@ -1,4 +1,3 @@
-#initialize browser
 $ie = New-Object -com internetexplorer.application;
 $ie.visible = $true;
 $ie.navigate("http://lmnapp75/BPMDDILP/");
