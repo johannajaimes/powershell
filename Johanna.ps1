@@ -12,9 +12,14 @@ If ($ie.Document.getElementById("menuQuery").value) {'$ie.Document.getElementByI
 }  Else {'$ie.Document.getElementById("menuQuery") IS NOT NICE!'} 
 }  Else {'$ie.Document IS NOT NICE!'} 
 }  Else {'$ie IS NOT NICE!'}
-$ie.Document.getElementById("menuQuery");
-$ie.Document.getElementById("menuQuery").click();
-while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
-$ie.Document.getElementById("menuQuery").value = "DD-4266-CV";
-while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
+
+$Doc = $ie.Document
+$menuQuery = $Doc.getElementById('menuQuery')
+$menuQuery.value = "DD-4266-CV"
+
+#$ie.Document.getElementById("menuQuery");
+#$ie.Document.getElementById("menuQuery").click();
+#while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
+#$ie.Document.getElementById("menuQuery").value = "DD-4266-CV";
+#while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
 
