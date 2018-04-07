@@ -14,17 +14,9 @@ If ($ie.Document.getElementById("menuQuery").value) {'$ie.Document.getElementByI
 }  Else {'$ie.Document IS NOT NICE!'} 
 }  Else {'$ie IS NOT NICE!'}
 
-
-$frames = $ie.document.getElementsByTagName("frame") 
-Foreach($element in $frames )
-{
-    'found a frame';
-    $element.id;
-}
-
 $Doc = $ie.Document
 $menuQuery = $Doc.getElementById('menuQuery')
-$menuQuery.value = "DD-4266-CV"
+$menuQuery.val("DD-4266-CV");
 
 #$ie.Document.getElementById("menuQuery");
 #$ie.Document.getElementById("menuQuery").click();
