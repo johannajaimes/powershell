@@ -16,7 +16,9 @@ If ($ie.Document.getElementById("menuQuery").value) {'$ie.Document.getElementByI
 
 $Doc = $ie.Document
 $menuQuery = $Doc.getElementById('menuQuery')
-$menuQuery.val("DD-4266-CV");
+$menuQuery.attr('value', 'DD-4266-CV');
+
+
 
 #$ie.Document.getElementById("menuQuery");
 #$ie.Document.getElementById("menuQuery").click();
