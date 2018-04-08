@@ -1,22 +1,84 @@
-Set-StrictMode -Off
-$ie = New-Object -com internetexplorer.application;
-$ie.navigate("http://lmnapp75/BPMDDILP/");
-while ($ie.Busy -eq $true) { Start-Sleep -Seconds 1; }    #wait for browser idle
-$ie.visible = $true;
-$counter = 0;
-while (($counter -lt 100) -and ($ie.Document -eq $null)) {Start-Sleep 1; $counter++}
-If ($ie) {'$ie is nice'
-If ($ie.Document) {'$ie.Document is nice'
-If ($ie.Document.getElementById("menuQuery")) {'$ie.Document.getElementById("menuQuery") is nice'
-If ($ie.Document.getElementById("menuQuery").value) {'$ie.Document.getElementById("menuQuery").value is nice'
-}  Else {'$ie.Document.getElementById("menuQuery").value IS NOT NICE!'} 
-}  Else {'$ie.Document.getElementById("menuQuery") IS NOT NICE!'} 
-}  Else {'$ie.Document IS NOT NICE!'} 
-}  Else {'$ie IS NOT NICE!'}
+$url = "http://lmnapp75/BPMDDILP/"
 
-$Doc = $ie.Document
-$menuQuery = $Doc.getElementById('menuQuery')
-$menuQuery.attr('value', 'DD-4266-CV');
+Function ResetTimer
+{
+    $script:startTime = [DateTime]::Now
+}
+
+Function IsTimeout([TimeSpan]$timeout)
+{
+    return ([DateTime]::Now - $startTime) -ge $timeout
+}
+
+Function WaitForIE
+{
+    $ie = $script:ie
+    Write-Debug "Waiting..."
+    ResetTimer
+    do {
+        if (IsTimeout ([TimeSpan]::FromSeconds(30))) {
+            Write-Error "IE response timed out."; ExitFailure
+        }
+        Start-Sleep -m 100
+    }
+    until ( $ie.ReadyState -eq 4 -and
+            $ie.Document.readyState -eq 'complete')
+}
+
+# Use this function to run JavaScript on a web page. Your $jsCommand can
+# return a value which will be returned by this function unless $global
+# switch is specified in which case $jsCommand will be executed in global
+# scope and cannot return a value. If you received error 80020101 it means
+# you need to fix your JavaScript code.
+Function ExecJavaScript($ie, $jsCommand, [switch]$global)
+{
+    if (!$global) {
+        $jsCommand = "document.body.setAttribute('PSResult', (function(){$jsCommand})());"
+    }
+    WaitForIE
+    $document = $ie.document
+    $window = $document.parentWindow
+    $window.execScript($jsCommand, 'javascript') | Out-Null
+    if (!$global) {
+        return $document.body.getAttribute('PSResult')
+    }
+}
+
+Function CheckJQueryExists
+{
+    $result = ExecJavaScript $ie 'return window.hasOwnProperty("$");'
+    return ($result -eq $true)
+}
+
+$ie = New-Object -COM InternetExplorer.Application -Property @{
+    Navigate = $url
+    Visible = $true
+}
+do { Start-Sleep -m 100 } while ( $ie.ReadyState -ne 4 )
+
+$jQueryExists = CheckJQueryExists $ie
+echo "jQuery exists? $jQueryExists"
+
+# make a jQuery call
+ExecJavaScript $ie @'
+    // this is JS code, remember to use semicolons
+    $('#menuQuery').val("DD-4266-CV");
+    var content = $('#menuQuery').val();
+    return content.text();
+'@
+
+# Quit and dispose IE COM
+#$ie.Quit()
+#[System.Runtime.Interopservices.Marshal]::ReleaseComObject($ie) | out-null
+#Remove-Variable ie
+
+
+
+
+
+
+
+
 
 
 
