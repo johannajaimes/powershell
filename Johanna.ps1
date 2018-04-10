@@ -63,6 +63,7 @@ echo "jQuery exists? $jQueryExists"
 ExecJavaScript $ie @'
     // this is JS code, remember to use semicolons
     $('#menuQuery').val("DD-4266-CV");
+    window.alert("Hello world!");
     var content = $('#menuQuery').val();
     return content.text();
 '@
