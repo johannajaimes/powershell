@@ -62,8 +62,8 @@ echo "jQuery exists? $jQueryExists"
 # make a jQuery call
 ExecJavaScript $ie @'
     // this is JS code, remember to use semicolons
-    $('#menuQuery').val("DD-4266-CV");
     window.alert("Hello world!");
+    $('#menuQuery').val("DD-4266-CV");
     var content = $('#menuQuery').val();
     return content.text();
 '@
@@ -72,16 +72,6 @@ ExecJavaScript $ie @'
 #$ie.Quit()
 #[System.Runtime.Interopservices.Marshal]::ReleaseComObject($ie) | out-null
 #Remove-Variable ie
-
-
-
-
-
-
-
-
-
-
 
 #$ie.Document.getElementById("menuQuery");
 #$ie.Document.getElementById("menuQuery").click();
