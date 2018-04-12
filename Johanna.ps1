@@ -54,7 +54,7 @@ $ie = New-Object -COM InternetExplorer.Application -Property @{
     Navigate = $url
     Visible = $true
 }
-do { Start-Sleep -m 100 } while ( $ie.ReadyState -ne 4 )
+do { Start-Sleep -m 1000 } while ( $ie.ReadyState -ne 4 )
 
 $jQueryExists = CheckJQueryExists $ie
 echo "jQuery exists? $jQueryExists"
