@@ -1,14 +1,19 @@
 $url = "http://lmnapp75/BPMDDILP/"
 
+
+echo "mike1"
+
 Function ResetTimer
 {
     $script:startTime = [DateTime]::Now
 }
+echo "mike2"
 
 Function IsTimeout([TimeSpan]$timeout)
 {
     return ([DateTime]::Now - $startTime) -ge $timeout
 }
+echo "mike3"
 
 Function WaitForIE
 {
@@ -24,6 +29,7 @@ Function WaitForIE
     until ( $ie.ReadyState -eq 4 -and
             $ie.Document.readyState -eq 'complete')
 }
+echo "mike4"
 
 # Use this function to run JavaScript on a web page. Your $jsCommand can
 # return a value which will be returned by this function unless $global
@@ -43,21 +49,30 @@ Function ExecJavaScript($ie, $jsCommand, [switch]$global)
         return $document.body.getAttribute('PSResult')
     }
 }
+echo "mike5"
 
 Function CheckJQueryExists
 {
     $result = ExecJavaScript $ie 'return window.hasOwnProperty("$");'
     return ($result -eq $true)
 }
+echo "mike6"
+
 
 $ie = New-Object -COM InternetExplorer.Application -Property @{
     Navigate = $url
     Visible = $true
 }
+echo "mike7"
+
+
 do { Start-Sleep -m 1000 } while ( $ie.ReadyState -ne 4 )
+echo "mike8"
 
 $jQueryExists = CheckJQueryExists $ie
 echo "jQuery exists? $jQueryExists"
+echo "mike9"
+
 
 # make a jQuery call
 ExecJavaScript $ie @'
@@ -69,6 +84,8 @@ ExecJavaScript $ie @'
     var content = $('#menuQuery').val();
     return content.text();
 '@
+echo "mike10"
+
 
 # Quit and dispose IE COM
 #$ie.Quit()
