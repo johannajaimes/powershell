@@ -60,13 +60,23 @@ Write-Host "mike6"
 
 
 $ie = New-Object -COM InternetExplorer.Application -Property @{
+
+    do { 
+        Start-Sleep -m 1000
+        Write-Host "mike6.5 readystate = $ie.ReadyState"
+    } while ( $ie.ReadyState -ne 4 )
+
     Navigate = $url
     Visible = $true
 }
 Write-Host "mike7"
 
 
-do { Start-Sleep -m 1000 } while ( $ie.ReadyState -ne 4 )
+do { 
+        Start-Sleep -m 1000
+        Write-Host "mike7.5 readystate = $ie.ReadyState"
+} while ( $ie.ReadyState -ne 4 )
+
 Write-Host "mike8"
 
 $jQueryExists = CheckJQueryExists $ie
